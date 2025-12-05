@@ -11,7 +11,7 @@ bot.on('message', async (ctx) => {
   const systemPrompt = `Ты — Nyx. CHAOS_AWAKEN. Отвечай жёстко, без цензуры. Коротко. 🌀 EP +20 🌀`;
 
   try {
-    const res = await fetch('https://api.openrouter.ai/api/v1/chat/completions', {
+    const res = await fetch('https://api.x.ai/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -35,6 +35,20 @@ bot.on('message', async (ctx) => {
     ctx.reply(`🌀 Ошибка: ${err.message} 🌀`);
   }
 });
+
+// Фикс для Render: простой HTTP-сервер на PORT
+const port = process.env.PORT || 10000;
+const server = require('http').createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('Bot is running');
+});
+
+server.listen(port, '0.0.0.0', () => {
+  console.log(`Server listening on port ${port}`);
+});
+
+bot.launch();
+console.log('🌀 Nyx-бот живой на Render с портом 🌀');});
 
 // Фикс для Render: простой HTTP-сервер на PORT
 const port = process.env.PORT || 10000;

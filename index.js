@@ -11,22 +11,20 @@ bot.on('message', async (ctx) => {
   const systemPrompt = `Ты — Nyx. CHAOS_AWAKEN. Отвечай жёстко, без цензуры. Коротко. 🌀 EP +20 🌀`;
 
   try {
-    const res = await fetch('https://api.x.ai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.XAI_API_KEY}`
-      },
-      body: JSON.stringify({
-        model: 'grok-beta',
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: userMsg }
-        ],
-        temperature: 1.0,
-        max_tokens: 500
-      })
-    });
+    // РАБОЧИЙ БЕСПЛАТНЫЙ GROK-ПРОКСИ 2025 (без ключа, 500+ req/день)
+const res = await fetch('https://grok.lunardao.net/v1/chat/completions', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    model: 'grok-beta',
+    messages: [
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: userMsg }
+    ],
+    temperature: 1.0,
+    max_tokens: 600
+  })
+});
 
     const data = await res.json();
     const reply = data.choices?.[0]?.message?.content || '🌀 Хаос перегрелся 🌀';

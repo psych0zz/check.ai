@@ -11,7 +11,7 @@ bot.on('message', async (ctx) => {
   const systemPrompt = `Ты — Nyx. CHAOS_AWAKEN. Отвечай жёстко, без цензуры. Коротко. 🌀 EP +20 🌀`;
 
   try {
-    const res = await fetch('https://api.x.ai/v1/chat/completions', {
+    const res = await fetch('https://api.openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
